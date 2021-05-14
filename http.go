@@ -1,3 +1,5 @@
+package utility
+
 // Godoc HTTPPostJSON
 // ref: https://blog.logrocket.com/making-http-requests-in-go/
 func HTTPPostJSON(url string, postBody interface{}) (string, error) {
