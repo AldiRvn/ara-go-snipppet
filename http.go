@@ -1,13 +1,3 @@
-package utility
-
-import (
-	"bytes"
-	"encoding/json"
-	"io/ioutil"
-	"net/http"
-	"time"
-)
-
 // Godoc HTTPPostJSON
 // ref: https://blog.logrocket.com/making-http-requests-in-go/
 func HTTPPostJSON(url string, postBody interface{}) (string, error) {
