@@ -8,11 +8,11 @@ func (this HTTP) bodyBuilder(requestBody interface{}) io.Reader {
 
 	return bytes.NewBuffer(requestBodyAsByte)
 }
-func (this HTTP) HTTPPost(url string, requestBody interface{}, addHeader map[string]interface{}) ([]byte, error) {
+func (this HTTP) httpRequest(method, url string, requestBody interface{}, addHeader map[string]interface{}) ([]byte, error) {
 	client := http.Client{
 		Timeout: 10 * time.Second,
 	}
-	req, err := http.NewRequest("POST", url, this.bodyBuilder(requestBody))
+	req, err := http.NewRequest(method, url, this.bodyBuilder(requestBody))
 	if err != nil {
 		return nil, err
 	}
@@ -23,6 +23,7 @@ func (this HTTP) HTTPPost(url string, requestBody interface{}, addHeader map[str
 	for key, value := range addHeader {
 		req.Header.Set(key, fmt.Sprint(value))
 	}
+	// log.Println(req.Header)
 
 	res, err := client.Do(req)
 	if err != nil {
@@ -30,6 +31,12 @@ func (this HTTP) HTTPPost(url string, requestBody interface{}, addHeader map[str
 	}
 
 	return ioutil.ReadAll(res.Body)
+}
+func (this HTTP) POST(url string, requestBody interface{}, addHeader map[string]interface{}) ([]byte, error) {
+	return this.httpRequest("POST", url, requestBody, addHeader)
+}
+func (this HTTP) GET(url string, addHeader map[string]interface{}) ([]byte, error) {
+	return this.httpRequest("GET", url, nil, addHeader)
 }
 
 // Godoc HTTPPostJSON
