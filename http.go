@@ -36,7 +36,7 @@ func (this HTTP) POST(url string, requestBody interface{}, addHeader map[string]
 	return this.httpRequest("POST", url, requestBody, addHeader)
 }
 func (this HTTP) GET(url string, addHeader map[string]interface{}) ([]byte, error) {
-	return this.httpRequest("GET", url, nil, addHeader)
+	return this.httpRequest("GET", url, map[string]interface{}{}, addHeader)
 }
 
 // Godoc HTTPPostJSON
