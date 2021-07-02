@@ -17,7 +17,7 @@ func (this HTTP) httpRequest(method, url string, requestBody interface{}, addHea
 	if requestBody != nil {
 		bodyToRequest = this.bodyBuilder(requestBody)
 	}
-	req, err := http.NewRequest(method, url, this.bodyBuilder(requestBody))
+	req, err := http.NewRequest(method, url, bodyToRequest)
 	if err != nil {
 		return nil, err
 	}
