@@ -12,6 +12,11 @@ func (this HTTP) httpRequest(method, url string, requestBody interface{}, addHea
 	client := http.Client{
 		Timeout: 10 * time.Second,
 	}
+	
+	var bodyToRequest io.Reader
+	if requestBody != nil {
+		bodyToRequest = this.bodyBuilder(requestBody)
+	}
 	req, err := http.NewRequest(method, url, this.bodyBuilder(requestBody))
 	if err != nil {
 		return nil, err
